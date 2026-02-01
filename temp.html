@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Alina</title>
+    <style>
+        body {
+            background-color: #fff5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #d63384;
+        }
+
+        #lock-screen {
+            position: fixed;
+            inset: 0;
+            background: #ff758f;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            color: white;
+            text-align: center;
+        }
+
+        input {
+            padding: 10px;
+            border-radius: 20px;
+            border: none;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        #main-content {
+            display: none;
+            text-align: center;
+            width: 100%;
+            z-index: 2;
+        }
+
+        .photo-frame {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: white;
+            padding: 10px 10px 30px 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transform: rotate(var(--r));
+            z-index: 1;
+            object-fit: cover;
+        }
+
+        /* Adjusted position to be higher */
+        #reason-container {
+            margin-top: 40px; /* Moves the whole group up */
+            margin-bottom: 40px; /* Adds space before the counter box */
+            position: relative;
+            z-index: 20;
+        }
+
+        #love-btn {
+            background-color: #ff758f;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        #love-btn:hover {
+            transform: scale(1.05);
+            background-color: #d63384;
+        }
+
+        #reason-text {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 1.5rem;
+            min-height: 1.6em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .counter-container {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+            padding: 40px;
+            border-radius: 30px;
+            border: 2px solid #ffb3c1;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        #timer {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .caption { font-style: italic; font-size: 1.2rem; }
+        .love-letter { margin-top: 20px; line-height: 1.6; color: #555; }
+    </style>
+</head>
+<body>
+
+    <div id="lock-screen">
+        <h2>-: Complete the quote, Alina... :-</h2>
+        <p>Mustafa mujhe dar lag raha hai, mujhe ________</p>
+        <input type="text" id="passwordInput" placeholder="Type here...">
+        <button onclick="checkPassword()" style="margin-top:10px; cursor:pointer;">Unlock</button>
+        <div id="error-message" style="color: white; margin-top: 10px; font-weight: bold; min-height: 1.2em;"></div>
+    </div>
+
+    <div id="main-content">
+        <div id="reason-container">
+            <button id="love-btn" onclick="showNewReason()">I Love Your:</button>
+            <span id="reason-text">...</span>
+        </div>
+
+        <img src="image_1.jpeg" class="photo-frame" style="top: 10%; left: 5%; --r: -15deg;">
+        <img src="image_2.jpeg" class="photo-frame" style="top: 60%; left: 10%; --r: 10deg;">
+        <img src="image_5.gif" class="photo-frame" style="top: 15%; right: 8%; --r: 20deg;">
+        <img src="image_3.jpeg" class="photo-frame" style="bottom: 10%; right: 15%; --r: -10deg;">
+
+<div class="counter-container">
+            <p class="caption">We've been together for</p>
+            <div id="timer">00d : 00h : 00m : 00s</div>
+            
+            <div class="love-letter">
+                <p>
+                    I love you more than words can express. Every moment with you is a treasure, and I 
+                    cherish every second we've had together. I look forward to many more memories, 
+                    adventures, laughter, and love with you by my side. When I'm with you, I want time
+                    to freeze, I want the rest of the world to disappear, I want it to never end.
+                    <br>You are my forever, Alina. (There's no return policy 😉) 
+                </p>
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: center; margin-top: 30px;">
+            <img src="image_4.jpeg" class="photo-frame" style="position: relative; --r: 5deg;">
+        </div>
+
+    <script>
+        const reasons = [
+            "Laugh", "Giggle", "Flirting", "Dirty Talk", "Sense of Humor",
+            "Your Right Eye", "Calling me Pagal", "Fit checks", "Hatred for Clash",
+            "Butt", "Yaaaaaaaar", "Bachu", "Shantu", "Ice Obsession", "Tongue",
+            "Neck", "Lips", "Leg kicking on Facetime", "Takis Obsession", "Advice", 
+            "Ahmed Bullying", "Snoring", "Biceps", "Waist", "Teeth Brushing", "Hands",
+            "Voice", "Crying when you're happy", "Dedication", "Babies Obsession", 
+            "Mustafa Obsession", "Meri Buggo", "Goodnight Kisses", "Moan", "Loyalty", 
+            "Trustworthiness", "Burger Accent", "Elbow", "Koni Maaroongi", "Cheeks (both)", 
+            "Cat Hatred", "(Shitty) Tastebuds", "Socks", "Smell", "Hair", "Singing", 
+            "Hugs", "Love for me", "Soul", "Legs", "Nose", "Teeth", "Weird Dancing",
+            "Maryam Gayness", "Forehead", "Boobs", "Morning Voice", "Late Night Rambling",
+            "Focused Face", "TikToks", "Reels", "Typos", "Screen Shares", "Lore Drops",
+            "Ipad Selfies", "Mirror Selfies", "Pouts", "Dick Drawings", "M Necklace",
+            "Close Friends Stories", "Eat Snow", "Honeymoon Planning", "Music Taste",
+            "Latina Hatred", 
+        ];
+
+        function showNewReason() {
+            const randomIndex = Math.floor(Math.random() * reasons.length);
+            document.getElementById('reason-text').innerText = reasons[randomIndex];
+        }
+
+        function checkPassword() {
+            const answer = document.getElementById('passwordInput').value.toLowerCase();
+            const errorDiv = document.getElementById('error-message');
+
+            // Simplified check using includes for cleaner code
+            if (["utaardo", "utardo"].includes(answer)) { 
+                document.getElementById('lock-screen').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+                startTimer();
+            } else {
+                // This replaces the alert
+                errorDiv.innerText = "Try again jaan ❤️";
+                
+                // Optional: Clear the message when she starts typing again
+                document.getElementById('passwordInput').oninput = () => { errorDiv.innerText = ""; };
+            }
+        }
+        const startDate = new Date(2025, 6, 7, 5, 0, 0); 
+
+        function startTimer() {
+            setInterval(() => {
+                const now = new Date();
+                const diff = now - startDate;
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                const mins = Math.floor((diff / 1000 / 60) % 60);
+                const secs = Math.floor((diff / 1000) % 60);
+                
+                document.getElementById('timer').innerHTML = 
+                    `${days}d : ${hours}h : ${mins}m : ${secs}s`;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
